@@ -3,6 +3,8 @@ import {
   numberToUintArray,
   byteToHex,
   uint8ArrayToHex,
+  domainToUintArray,
+  generateRequest,
 } from '../src/utils';
 
 describe('test binaryToArr function', () => {
@@ -44,5 +46,23 @@ describe('test uint8arrayToHex func', () => {
     const num = 0b0000100000000100;
     const hex = uint8ArrayToHex(numberToUintArray(num, 16));
     expect(hex).toBe('0804');
+  });
+});
+
+describe('test domainToUintArray func', () => {
+  it('test', () => {
+    const str = 'scu.edu.cn';
+    const uintArr = domainToUintArray(str);
+    const hex = uint8ArrayToHex(uintArr);
+    expect(hex).toEqual('037363750365647502636e00');
+  });
+});
+
+describe('test generate request', () => {
+  it('test', () => {
+    const uintArr = generateRequest('scu.edu.cn');
+    const hex = uint8ArrayToHex(uintArr, true);
+    expect(uintArr).not.toBeNull();
+    expect(hex).not.toBeNull();
   });
 });

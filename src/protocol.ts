@@ -92,3 +92,46 @@ export interface Header {
    */
   arCount: Uint8Array;
 }
+
+export enum Qtype {
+  A = 1,
+  NS,
+  MD,
+  MF,
+  CNAME,
+  SOA,
+  MB,
+  MG,
+  MR,
+  NULL,
+  WKS,
+  PTR,
+  HINFO,
+  MINFO,
+  MX,
+  TXT
+}
+
+export enum QClass {
+  IN = 1,
+}
+
+export interface Question {
+  /**
+   * Variable length byte
+   */
+  qName: Uint8Array;
+  /**
+   * 2 byte
+   */
+  qType: Uint8Array;
+  /**
+   * 2 byte
+   */
+  qClass: Uint8Array;
+}
+
+export interface Request {
+  header: Header;
+  question: Question;
+}
