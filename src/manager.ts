@@ -28,10 +28,11 @@ export class App {
   }
 
   init() {
+    let middlewareFns = [];
     const { client, server } = this;
     client.on('message', (msg, rinfo) => {
-      middlewares.forEach((fn) => {
-        fn(null, {
+      middlewareFns.forEach((fn) => {
+        fn({
           msg,
           rinfo,
           type: 'res',
@@ -40,13 +41,11 @@ export class App {
       server.send(msg, this.curClient.port, this.curClient.address);
     });
     server.on('message', (msg, rinfo) => {
-      middlewares.forEach((fn) => {
-        fn({
-          msg,
-          rinfo,
-          type: 'req',
-        }, null);
-      });
+      middlewareFns = middlewares.map((fn) => fn({
+        msg,
+        rinfo,
+        type: 'req',
+      }));
       this.curClient = rinfo;
       client.send(msg, 53, '223.5.5.5');
     });

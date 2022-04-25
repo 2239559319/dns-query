@@ -8,7 +8,7 @@ type BaseR = {
 type Request = BaseR & { type: 'req' };
 type Response = BaseR & { type: 'res' };
 
-export type Middleware = (req: Request | null, res: Response | null) => void;
+export type Middleware = (req: Request) => (res: Response) => void;
 
 export const middlewares: Middleware[] = [];
 
