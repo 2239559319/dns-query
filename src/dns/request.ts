@@ -6,7 +6,13 @@ export interface Flag {
   /**
    * 0 query 1 response
    */
-  qr: Binary;
+  qr: {
+    raw: 0;
+    text: 'query';
+  } | {
+    raw: 1;
+    text: 'response';
+  };
   /**
    * 0 a standard query (QUERY)
    * 1 an inverse query (IQUERY)

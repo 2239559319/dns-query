@@ -13,5 +13,7 @@ module.exports = {
   rules: {
     'max-len': ['off'],
     '@typescript-eslint/no-unused-vars': ['error'],
+    'require-jsdoc': ['off'],
+    'object-curly-spacing': ['off'],
   },
 };
