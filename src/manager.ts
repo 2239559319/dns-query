@@ -6,7 +6,7 @@ export class App {
   server: Socket;
   client: Socket;
 
-  curClient: RemoteInfo | null;
+  requestQueue: Array<{ msg: Uint8Array, rinfo: RemoteInfo }>;
 
   constructor() {
     this.server = createSocket('udp4');
@@ -18,7 +18,8 @@ export class App {
     this.client.on('error', (err) => {
       console.log('client err', err);
     });
-    this.curClient = null;
+
+    this.requestQueue = [];
     this.initMiddleware();
     this.init();
   }
@@ -31,6 +32,7 @@ export class App {
     let middlewareFns = [];
     const { client, server } = this;
     client.on('message', (msg, rinfo) => {
+      const { rinfo: clientRinfo } = this.requestQueue.shift();
       middlewareFns.forEach((fn) => {
         fn({
           msg,
@@ -38,15 +40,16 @@ export class App {
           type: 'res',
         });
       });
-      server.send(msg, this.curClient.port, this.curClient.address);
+      server.send(msg, clientRinfo.port, clientRinfo.address);
     });
     server.on('message', (msg, rinfo) => {
+      this.requestQueue.push({ msg, rinfo });
       middlewareFns = middlewares.map((fn) => fn({
         msg,
         rinfo,
         type: 'req',
       }));
-      this.curClient = rinfo;
+
       client.send(msg, 53, '223.5.5.5');
     });
   }
