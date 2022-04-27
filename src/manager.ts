@@ -1,12 +1,11 @@
 import { createSocket, Socket, RemoteInfo } from 'dgram';
-import { middlewares, add } from './middlewares/middleware';
-import { print } from './middlewares/print';
+import { middlewares, add, print, parse } from './middlewares';
 
 export class App {
   server: Socket;
   client: Socket;
 
-  requestQueue: Array<{ msg: Uint8Array, rinfo: RemoteInfo }>;
+  requestQueue: Array<{ msg: Buffer, rinfo: RemoteInfo }>;
 
   constructor() {
     this.server = createSocket('udp4');
@@ -26,6 +25,7 @@ export class App {
 
   initMiddleware() {
     add(print);
+    add(parse);
   }
 
   init() {

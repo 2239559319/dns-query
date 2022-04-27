@@ -1,7 +1,7 @@
 import type { RemoteInfo } from 'dgram';
 
 type BaseR = {
-  msg: Uint8Array;
+  msg: Buffer;
   rinfo: RemoteInfo;
 }
 
