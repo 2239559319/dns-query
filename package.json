@@ -1,23 +1,18 @@
 {
   "name": "dns-query",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "private": true,
   "scripts": {
-    "dev": "tsc -w",
-    "build": "tsc",
-    "start": "tsc && node dist/index.js",
-    "test": "jest",
-    "lint": "eslint . --ext .ts"
+    "test": "jest"
   },
   "devDependencies": {
     "@types/jest": "^27.0.1",
     "@types/node": "^16.7.1",
-    "@typescript-eslint/eslint-plugin": "^4.29.3",
-    "@typescript-eslint/parser": "^4.29.3",
-    "eslint": "^7.32.0",
-    "eslint-config-google": "^0.14.0",
+    "eslint": "^8.14.0",
     "jest": "^27.1.0",
+    "prettier": "^2.6.2",
     "ts-jest": "^27.0.5",
     "ts-node": "^10.7.0",
     "typescript": "^4.3.5"

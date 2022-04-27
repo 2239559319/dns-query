@@ -6,8 +6,5 @@
     "esModuleInterop": true,
     "declaration": false,
     "sourceMap": true,
-    "outDir": "dist"
-  },
-  "include": ["src"],
-  "exclude": ["node_modules", "tests"]
+  }
 }
