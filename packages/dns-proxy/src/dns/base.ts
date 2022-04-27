@@ -67,23 +67,29 @@ export class BaseStruct {
    * 事务id
    */
   id: Word;
+
   /**
    * 标志
    */
   _rawFlag: Word;
+
   flag: Flag;
+
   /**
    * 问题计数
    */
   Questions: Word;
+
   /**
    * 回答资源记录数
    */
   AnswerRRs: Word;
+
   /**
    * 权威名称服务器计数
    */
   AuthorityRRs: Word;
+
   /**
    * 附加资源记录数
    */
@@ -93,11 +99,14 @@ export class BaseStruct {
    * 请求名
    */
   _rawQueryName: Buffer;
+
   queryName: string;
+
   /**
    * 类型
    */
   queryType: Word;
+
   /**
    * 1 A
    * 2 NS

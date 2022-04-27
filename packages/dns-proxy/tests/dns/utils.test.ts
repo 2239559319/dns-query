@@ -9,7 +9,9 @@ describe('test flagToObj', () => {
 
 describe('test queryNameToString fn', () => {
   it('test baidu', () => {
-    const rawQueryName = Buffer.from([3, 119, 119, 119, 5, 98, 97, 105, 100, 117, 3, 99, 111, 109, 0]);
+    const rawQueryName = Buffer.from(
+      [3, 119, 119, 119, 5, 98, 97, 105, 100, 117, 3, 99, 111, 109, 0]
+    );
     const queryNameStr = queryNameToString(rawQueryName);
     expect(queryNameStr).toBe('www.baidu.com');
   });

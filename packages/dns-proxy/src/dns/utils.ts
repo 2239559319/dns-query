@@ -17,7 +17,7 @@ export function flagToObj(rawFlag: Word): Flag {
     RD,
     RA,
     Z,
-    rcode,
+    rcode
   } as Flag;
 }
 

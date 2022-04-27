@@ -1,8 +1,11 @@
 import { createSocket, Socket, RemoteInfo } from 'dgram';
-import { middlewares, add, print, parse } from './middlewares';
+import {
+  middlewares, add, print, parse
+} from './middlewares';
 
 export class App {
   server: Socket;
+
   client: Socket;
 
   requestQueue: Array<{ msg: Buffer, rinfo: RemoteInfo }>;
@@ -37,7 +40,7 @@ export class App {
         fn({
           msg,
           rinfo,
-          type: 'res',
+          type: 'res'
         });
       });
       server.send(msg, clientRinfo.port, clientRinfo.address);
@@ -47,7 +50,7 @@ export class App {
       middlewareFns = middlewares.map((fn) => fn({
         msg,
         rinfo,
-        type: 'req',
+        type: 'req'
       }));
 
       client.send(msg, 53, '223.5.5.5');
@@ -57,13 +60,13 @@ export class App {
   listen() {
     this.server.bind({
       address: '127.0.0.1',
-      port: 53,
+      port: 53
     }, () => {
       console.log('dns serve in port 53');
     });
 
     this.client.bind({
-      port: 5678,
+      port: 5678
     }, () => {
       console.log('client in port 5678');
     });
