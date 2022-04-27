@@ -1,14 +1,12 @@
 import { createSocket, Socket, RemoteInfo } from 'dgram';
-import {
-  middlewares, add, print, parse
-} from './middlewares';
+import { middlewares, add, print, parse } from './middlewares';
 
 export class App {
   server: Socket;
 
   client: Socket;
 
-  requestQueue: Array<{ msg: Buffer, rinfo: RemoteInfo }>;
+  requestQueue: Array<{ msg: Buffer; rinfo: RemoteInfo }>;
 
   constructor() {
     this.server = createSocket('udp4');
@@ -47,28 +45,36 @@ export class App {
     });
     server.on('message', (msg, rinfo) => {
       this.requestQueue.push({ msg, rinfo });
-      middlewareFns = middlewares.map((fn) => fn({
-        msg,
-        rinfo,
-        type: 'req'
-      }));
+      middlewareFns = middlewares.map((fn) =>
+        fn({
+          msg,
+          rinfo,
+          type: 'req'
+        })
+      );
 
       client.send(msg, 53, '223.5.5.5');
     });
   }
 
   listen() {
-    this.server.bind({
-      address: '127.0.0.1',
-      port: 53
-    }, () => {
-      console.log('dns serve in port 53');
-    });
+    this.server.bind(
+      {
+        address: '127.0.0.1',
+        port: 53
+      },
+      () => {
+        console.log('dns serve in port 53');
+      }
+    );
 
-    this.client.bind({
-      port: 5678
-    }, () => {
-      console.log('client in port 5678');
-    });
+    this.client.bind(
+      {
+        port: 5678
+      },
+      () => {
+        console.log('client in port 5678');
+      }
+    );
   }
 }

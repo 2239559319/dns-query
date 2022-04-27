@@ -5,7 +5,13 @@
     "node": true,
     "jest/globals":true 
   },
-  "extends": ["plugin:react/recommended", "airbnb", "plugin:import/recommended", "plugin:import/typescript"],
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "plugin:prettier/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript"
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
