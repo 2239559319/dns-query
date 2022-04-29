@@ -2,12 +2,10 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "commonjs",
+    "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "declaration": false,
     "sourceMap": true,
-    "outDir": "dist"
-  },
-  "include": ["src"],
-  "exclude": ["node_modules", "tests"]
+  }
 }
