@@ -1,5 +1,5 @@
 import { createSocket, Socket, RemoteInfo } from 'dgram';
-import { middlewares, add, print, parse } from './middlewares';
+import { middlewares, add, print, parse, serverEvent } from './middlewares';
 
 export class App {
   server: Socket;
@@ -27,6 +27,7 @@ export class App {
   initMiddleware() {
     add(print);
     add(parse);
+    add(serverEvent);
   }
 
   init() {

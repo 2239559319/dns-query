@@ -1,5 +1,18 @@
 import type { Flag, Word } from './base';
 
+/**
+ * 2byte to hex
+ * @param num
+ * @returns
+ */
+export function wordToHex(num: Word) {
+  return num.toString(16).padStart(4, '0');
+}
+
+export function bufToHex(buf: Buffer) {
+  return buf.toString('hex');
+}
+
 export function flagToObj(rawFlag: Word): Flag {
   const QR = (rawFlag >>> 15) & 1;
   const Opcode = (rawFlag >>> 11) & 0b1111;
@@ -43,4 +56,43 @@ export function queryNameToString(queryName: Buffer): string {
   charArr.shift();
 
   return charArr.join('');
+}
+
+export function numToQueryName(num: number): string {
+  switch (num) {
+    case 1:
+      return 'A';
+    case 2:
+      return 'NS';
+    case 3:
+      return 'MD';
+    case 4:
+      return 'MF';
+    case 5:
+      return 'CNAME';
+    case 6:
+      return 'SOA';
+    case 7:
+      return 'MB';
+    case 8:
+      return 'MG';
+    case 9:
+      return 'MR';
+    case 10:
+      return 'NULL';
+    case 11:
+      return 'WKS';
+    case 12:
+      return 'PTR';
+    case 13:
+      return 'HINFO';
+    case 14:
+      return 'MINFO';
+    case 15:
+      return 'MX';
+    case 16:
+      return 'TXT';
+    default:
+      return 'UNKOWN';
+  }
 }

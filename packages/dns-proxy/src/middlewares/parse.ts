@@ -6,5 +6,6 @@ export const parse: Middleware = (req) => {
   return (res) => {
     const { msg: reqMsg } = req;
     const reqObj = new Request(reqMsg);
+    console.log(reqObj.queryName);
   };
 };

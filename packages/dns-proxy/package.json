@@ -10,5 +10,11 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@types/koa": "^2.13.4",
+    "@types/ws": "^8.5.3",
+    "koa": "^2.13.4",
+    "ws": "^8.5.0"
+  }
 }

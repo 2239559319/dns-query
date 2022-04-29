@@ -1,4 +1,10 @@
-import { flagToObj, queryNameToString } from './utils';
+import {
+  flagToObj,
+  queryNameToString,
+  numToQueryName,
+  wordToHex,
+  bufToHex
+} from './utils';
 
 export type Binary = 0 | 1;
 
@@ -120,10 +126,7 @@ export class BaseStruct {
 
   /**
    * 类型
-   */
-  queryType: Word;
-
-  /**
+   * /**
    * 1 A
    * 2 NS
    * 3 MD
@@ -140,6 +143,12 @@ export class BaseStruct {
    * 14 MINFO
    * 15 MX
    * 16 TXT
+   */
+
+  queryType: Word;
+
+  /**
+   * 1 IN internet
    */
   queryClass: Word;
 
@@ -161,5 +170,71 @@ export class BaseStruct {
     this.queryName = queryNameToString(this._rawQueryName);
     this.queryType = raw.readUInt16BE(raw.length - 4);
     this.queryClass = raw.readUInt16BE(raw.length - 2);
+  }
+
+  /**
+   * 2byte一组，queryName除外
+   */
+  toArr() {
+    const arr: Array<{ name: string; raw: string; value: any }> = [];
+    const {
+      id,
+      flag,
+      _rawFlag,
+      Questions,
+      AnswerRRs,
+      AuthorityRRs,
+      AdditionalRRs,
+      _rawQueryName,
+      queryName,
+      queryType,
+      queryClass
+    } = this;
+    arr.push({
+      name: 'id',
+      raw: wordToHex(id),
+      value: wordToHex(id)
+    });
+    arr.push({
+      name: 'flag',
+      raw: wordToHex(_rawFlag),
+      value: flag
+    });
+    arr.push({
+      name: 'Questions',
+      raw: wordToHex(Questions),
+      value: wordToHex(Questions)
+    });
+    arr.push({
+      name: 'AnswerRRs',
+      raw: wordToHex(AnswerRRs),
+      value: wordToHex(AnswerRRs)
+    });
+    arr.push({
+      name: 'AuthorityRRs',
+      raw: wordToHex(AuthorityRRs),
+      value: wordToHex(AuthorityRRs)
+    });
+    arr.push({
+      name: 'AdditionalRRs',
+      raw: wordToHex(AdditionalRRs),
+      value: wordToHex(AdditionalRRs)
+    });
+    arr.push({
+      name: 'queryName',
+      raw: bufToHex(_rawQueryName),
+      value: queryName
+    });
+    arr.push({
+      name: 'queryType',
+      raw: wordToHex(queryType),
+      value: numToQueryName(queryType)
+    });
+    arr.push({
+      name: 'queryClass',
+      raw: wordToHex(queryClass),
+      value: 'internet'
+    });
+    return arr;
   }
 }
